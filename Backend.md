@@ -335,8 +335,6 @@ Security
 - Input validation prevents path traversal or malicious file uploads.
 
 
----
-
 ## **Problem 4: Character-Based Video Series Generator (Backend Architecture)**
 
 **Goal:** Define characters once (image + traits + relationships). For each episode story → output episode package (script/scenes/assets plan/render plan), optionally render. [READ MORE ABOUT THE PROJECT](./char-based-video-generation.md)

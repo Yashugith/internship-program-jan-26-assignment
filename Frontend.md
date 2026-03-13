@@ -26,7 +26,51 @@
 
 **Your Solution for problem 1:**
 
-You need to put your solution here.
+Frontend System Design
+Tech Stack
+- Framework:React with Next.js for fast routing and SSR support.
+- State Management:React Query for server state (job status, results) and local state with React hooks.
+- UI Library:TailwindCSS + reusable component library for consistent design.
+
+Screens
+1. Upload Page
+   - Video upload with progress indicator.
+   - Shows validation errors (size/type).
+
+2. Job List
+   - Displays all processing jobs.
+   - Shows status badges (Queued, Processing, Success, Failed).
+
+3. Job Detail
+   - Live status updates with logs and progress.
+
+4. Results Page
+   - Displays generated Summary.md
+   - Highlights with clickable timestamps
+   - Screenshot assets.
+
+UI States
+- Loading → spinner
+- Queued → waiting indicator
+- Processing → progress bar
+- Success → results view
+- Failed → retry button
+- Partial results → show completed artifacts first.
+
+API Strategy
+- Upload via POST /videos
+- Poll /jobs/{id} every few seconds for progress.
+- Abort polling when user leaves page.
+
+Browser Caching
+- Cache job list and job details using React Query.
+- TTL caching for results data.
+- Invalidate cache after job completion.
+Debugging Plan
+- Display job ID and correlation ID in UI.
+- Log network requests in browser console.
+- If job stuck in processing, inspect job status API responses.
+
 
 ---
 
@@ -44,7 +88,41 @@ You need to put your solution here.
 
 **Your Solution for problem 2:**
 
-You need to put your solution here.
+LinkedIn Automation Platform – Frontend Design
+
+Screens
+1. Connect LinkedIn
+   - OAuth connection flow.
+2. Persona Editor
+   - Inputs for tone, audience, writing style.
+3. Draft Generator
+   - Shows 3 generated drafts.
+4. Approval Screen
+   - User selects or edits draft.
+5. Scheduler
+   - Select date/time for posting.
+6. Post History
+   - Shows published posts and status.
+
+Form UX
+- Validate persona inputs before generation.
+- Show character limit for LinkedIn posts.
+- Prevent scheduling posts in the past.
+
+API Calling Strategy
+- POST /generate-draft
+- POST /approve
+- POST /schedule
+- Use optimistic UI updates when approving drafts.
+
+Caching
+- Cache drafts to avoid regeneration.
+- Cache schedule list and post history.
+- Refetch data after publishing.
+
+Debugging
+- Display error messages for failed LinkedIn posting.
+- Show request ID to help backend debugging.
 
 ---
 
@@ -62,7 +140,34 @@ You need to put your solution here.
 
 **Your Solution for problem 3:**
 
-You need to put your solution here.
+DOCX Template → Bulk Generator (Frontend Design)
+
+Screens
+1. Template Upload
+2. Field Detection Review
+3. Single Fill Form
+4. Bulk CSV Upload
+5. Bulk Run Status
+6. Download Results
+
+Field UI
+- Editable fields detected from template.
+- Field types supported: text, number, date.
+- Validation rules (required fields, format validation).
+
+Bulk Upload UX
+- CSV validation before upload.
+- Show mapping preview between CSV columns and template fields.
+- Progress bar for generation status.
+
+Browser Caching
+- Cache template metadata and field schema.
+- Cache bulk run results for pagination.
+
+Downloads
+- Use signed URLs for secure downloads.
+- Show download progress indicator.
+
 
 ---
 
@@ -79,7 +184,27 @@ You need to put your solution here.
 
 **Your Solution for problem 4:**
 
-You need to put your solution here.
+Character-Based Video Series Generator (Frontend Design)
+
+Screens
+1. Character Library
+2. Relationship Editor
+3. Episode Creator
+4. Episode Detail (Scenes)
+5. Asset Gallery
+
+Consistency UX
+- Character profiles locked per episode to maintain story consistency.
+- Version badges show character updates.
+
+API Calling
+- Episode generation runs as async job.
+- UI shows job progress and status updates.
+
+Caching
+- Cache character library data.
+- Cache episode packages and asset thumbnails.
+
 
 ---
 
@@ -89,30 +214,39 @@ Answer these in **bullet points** (max 1 page total):
 
 1. **Frontend stack choice**
 
-* EDIT YOUR ANSWER HERE: Framework (Next.js/Vue/etc), state management, router, UI kit, why.
-  `<EDIT YOUR ANSWER HERE>`
+  - Framework: Next.js (React)
+  - State: React Query
+  - Router: Next.js routing
+  - UI Kit: TailwindCSS
+  - Chosen for performance, modular components, and good developer experience.
 
 2. **API layer design**
 
 * Fetch/Axios choice, typed client generation (OpenAPI), error normalization, retries, request dedupe, abort controllers.
-  `
-  <EDIT YOUR ANSWER HERE>`
+  - Use Axios for API requests.
+  - Central API client with error normalization.
+  - Implement retry logic and abort controllers for cancelled requests.
 
 3. **Browser caching plan**
 
 * What you cache (GET responses, derived state), where (memory, IndexedDB, localStorage), TTL/invalidation rules.
 * How you handle “job status updates” without stale UI.
   `
-  <EDIT YOUR ANSWER HERE>`
+  - Cache GET responses with React Query.
+  - Use memory cache for job status.
+  - Use IndexedDB or localStorage for lightweight persistence.
 
 4. **Debugging & observability**
 
 * Error boundaries, client-side logging approach, correlation id propagation, “report a problem” payload.
 * How you would debug: slow uploads, failed downloads, intermittent 500s.
-  `
-  <EDIT YOUR ANSWER HERE>`
+  - Implement error boundaries in React.
+  - Log API failures to monitoring service.
+  - Display correlation IDs for debugging support issues.
 
 5. **Security basics**
 
 * Token storage approach, CSRF considerations (if cookies), XSS avoidance for markdown rendering, safe file download patterns.
-  ` A<EDIT YOUR ANSWER HERE>`
+  - Store tokens in secure HTTP-only cookies when possible.
+  - Sanitize markdown rendering to prevent XSS.
+  - Use signed URLs for secure file downloads.
